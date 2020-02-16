@@ -11,9 +11,9 @@ export default {
     ...container,
   },
   content: {
+    marginTop: '65px',
     padding: '30px 15px',
     minHeight: 'calc(100vh - 123px)',
-    border: '2px solid red',
   },
   mainPanel: {
     position: 'relative',

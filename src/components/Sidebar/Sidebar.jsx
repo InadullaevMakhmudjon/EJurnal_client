@@ -20,11 +20,7 @@ const Sidebar = ({ image, routes }) => {
   const dispatch = useDispatch();
   const user = useSelector(({ user: { user: userState } }) => userState);
   const classes = useStyles();
-  /*
-  function activeRoute(routeName) {
-    return window.location.href.indexOf(routeName) > -1;
-  }
-*/
+
   const header = (
     <div className={classes.header}>
       <Typography variant="h4">{user.name}</Typography>
