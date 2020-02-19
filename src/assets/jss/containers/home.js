@@ -1,14 +1,13 @@
-import { container } from '../index';
-
 export default {
   wrapper: {
     position: 'relative',
     top: 0,
     display: 'flex',
     justifyContent: 'flex-end',
+    background: '#EEEEEE',
   },
   container: {
-    ...container,
+
   },
   content: {
     marginTop: '65px',
