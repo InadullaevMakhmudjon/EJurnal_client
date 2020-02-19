@@ -7,6 +7,8 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import InfoIcon from '@material-ui/icons/Info';
+import CreateIcon from '@material-ui/icons/Create';
+import Create from 'pages/author/Create';
 import { ADMIN, AUTHOR, EDITOR } from './utils/roles';
 
 // 1 Role Admin, 2 Role Author, 3 Role Student
@@ -16,6 +18,27 @@ export default [
     name: 'Dashboard',
     icon: DashboardIcon,
     roles: [ADMIN, AUTHOR, EDITOR],
+    component: () => <></>,
+  },
+  {
+    path: '/create',
+    name: 'create',
+    icon: CreateIcon,
+    roles: [AUTHOR],
+    component: Create,
+  },
+  {
+    path: '/articles',
+    name: 'Articles',
+    icon: AssignmentIcon,
+    roles: [AUTHOR, EDITOR],
+    component: () => <></>,
+  },
+  {
+    path: '/instruction',
+    name: 'Instruction',
+    icon: InfoIcon,
+    roles: [AUTHOR, EDITOR],
     component: () => <></>,
   },
   {
@@ -40,13 +63,6 @@ export default [
     component: () => <></>,
   },
   {
-    path: '/articles',
-    name: 'Articles',
-    icon: AssignmentIcon,
-    roles: [AUTHOR, EDITOR],
-    component: () => <></>,
-  },
-  {
     path: '/rejected_articles',
     name: 'Rejected',
     icon: ThumbDownIcon,
@@ -58,13 +74,6 @@ export default [
     name: 'Accepted',
     icon: ThumbUpIcon,
     roles: [EDITOR],
-    component: () => <></>,
-  },
-  {
-    path: '/instruction',
-    name: 'Instruction',
-    icon: InfoIcon,
-    roles: [AUTHOR, EDITOR],
     component: () => <></>,
   },
 ];
