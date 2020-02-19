@@ -24,6 +24,7 @@ module.exports = {
   rules: {
     "linebreak-style": 0,
     "import/no-unresolved": 0,
-    "react/no-array-index-key": 0
+    "react/no-array-index-key": 0,
+    "react/jsx-props-no-spreading": 0
   },
 };
