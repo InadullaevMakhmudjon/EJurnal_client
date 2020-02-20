@@ -9,6 +9,9 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import InfoIcon from '@material-ui/icons/Info';
 import CreateIcon from '@material-ui/icons/Create';
 import Create from 'pages/author/Create';
+import Articles from 'pages/author/Atricles';
+import Users from 'pages/admin/Users';
+import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import { ADMIN, AUTHOR, EDITOR } from './utils/roles';
 
 // 1 Role Admin, 2 Role Author, 3 Role Student
@@ -32,7 +35,7 @@ export default [
     name: 'Articles',
     icon: AssignmentIcon,
     roles: [AUTHOR, EDITOR],
-    component: () => <></>,
+    component: Articles,
   },
   {
     path: '/instruction',
@@ -75,5 +78,12 @@ export default [
     icon: ThumbUpIcon,
     roles: [EDITOR],
     component: () => <></>,
+  },
+  {
+    path: '/users',
+    name: 'Users',
+    icon: GroupAddIcon,
+    roles: [ADMIN],
+    component: Users,
   },
 ];
