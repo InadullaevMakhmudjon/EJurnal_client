@@ -212,6 +212,18 @@ const defaultBoxShadow = {
   transition: 'all 150ms ease 0s',
 };
 
+const titleFontStyle = {
+  color: grayColor[2],
+  textDecoration: 'none',
+  fontWeight: '300',
+  fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+  '& small': {
+    color: grayColor[1],
+    fontWeight: '400',
+    lineHeight: '1',
+  },
+};
+
 const title = {
   color: grayColor[2],
   textDecoration: 'none',
@@ -253,6 +265,7 @@ const cardLink = {
 export {
   hexToRgb,
   // variables
+  titleFontStyle,
   drawerWidth,
   transition,
   container,
