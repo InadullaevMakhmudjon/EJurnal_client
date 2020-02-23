@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import ErrorSnackbar from 'components/Error/Snackbar';
+import ErrorDialog from 'components/Error/Dialog';
 import { ApolloClient } from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
+import { useSelector } from 'react-redux';
 import Routes from './Routes';
 import 'assets/css/index.css';
 
@@ -12,6 +14,7 @@ import 'assets/css/index.css';
 export default () => {
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const token = useSelector(({ user: { token: userToken } }) => userToken);
 
   useEffect(() => {
     if (errorMessage) {
@@ -36,14 +39,14 @@ export default () => {
       console.error(`[Network error]: ${networkError}`);
       setErrorMessage(networkError);
     }
-    if (response) response.errors = null;
+    if (response) { response.errors = null; response.data = {}; }
   });
 
   const httpLink = new HttpLink({
     uri: process.env.NODE_ENV === 'production' ? process.env.REACT_APP_BASE_URL : 'http://localhost:3030/graphql',
     cache,
     headers: {
-      authorization: `Bearer ${localStorage.getItem('token')}`,
+      authorization: `Bearer ${token}`,
     },
   });
 
@@ -55,6 +58,7 @@ export default () => {
   return (
     <ApolloProvider client={client}>
       <Routes />
+      <ErrorDialog />
       <ErrorSnackbar
         open={showError}
         onClose={() => { setShowError(false); setErrorMessage(''); }}
