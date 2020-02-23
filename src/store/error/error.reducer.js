@@ -3,6 +3,8 @@ import * as types from './error.actionTypes';
 const INITIAL_STATE = {
   open: true,
   message: '',
+  dialogOpen: false,
+  dialogMessage: '',
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -16,6 +18,16 @@ export default (state = INITIAL_STATE, action) => {
       return {
         open: false,
         message: '',
+      };
+    case types.OPENDIALOG:
+      return {
+        dialogOpen: true,
+        dialogMessage: action.payload,
+      };
+    case types.CLOSEDIALOG:
+      return {
+        dialogOpen: false,
+        dialogMessage: '',
       };
     default:
       return state;
