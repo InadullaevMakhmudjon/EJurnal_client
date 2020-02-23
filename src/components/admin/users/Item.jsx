@@ -8,16 +8,26 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import HourglassFullIcon from '@material-ui/icons/HourglassFull';
 import Menu from '@material-ui/core/Menu';
+import PropTypes from 'prop-types';
 import Fade from '@material-ui/core/Fade';
 import MenuItem from '@material-ui/core/MenuItem';
 import BlockIcon from '@material-ui/icons/Block';
+import { useLocation, useHistory } from 'react-router-dom';
 import DeleteIcon from '@material-ui/icons/Delete';
+import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
+import { DELETE_USER, BLOCK_USER } from 'graphql/admin';
+import { useMutation } from '@apollo/react-hooks';
 
 const useStyle = makeStyles(style);
 
-export default () => {
+const Item = ({ user, refetch }) => {
+  const onCompleted = () => { refetch(); };
+  const history = useHistory();
+  const location = useLocation();
   const classes = useStyle();
   const [anchorEl, setAnchorEl] = useState(null);
+  const [blockUser] = useMutation(BLOCK_USER, { onCompleted });
+  const [deleteUser] = useMutation(DELETE_USER, { onCompleted });
 
   const handleClick = (event) => {
     event.preventDefault();
@@ -29,23 +39,23 @@ export default () => {
   };
 
   return (
-    <Grid container className={classes.container} onContextMenu={(e) => handleClick(e)}>
+    <Grid container className={classes.container} onClick={() => { if (!anchorEl) history.push(`${location.pathname}/${user.id}`); }} onContextMenu={(e) => handleClick(e)}>
       <Grid item xs={12} className={classes.item}>
         <img alt="" src={Avatar} className={classes.image} />
-        <Typography variant="body1">User name</Typography>
+        <Typography variant="body1">{user.firstName}</Typography>
 
         <Grid container justify="center">
           <Grid item xs={4} className={classes.status}>
             <ThumbUpIcon />
-            <Typography variant="body2">12</Typography>
+            <Typography variant="body2">0</Typography>
           </Grid>
           <Grid item xs={4} className={classes.status}>
             <ThumbDownIcon />
-            <Typography variant="body2">8</Typography>
+            <Typography variant="body2">0</Typography>
           </Grid>
           <Grid item xs={4} className={classes.status}>
             <HourglassFullIcon />
-            <Typography variant="body2" color="textPrimary">9</Typography>
+            <Typography variant="body2" color="textPrimary">0</Typography>
           </Grid>
         </Grid>
 
@@ -58,11 +68,32 @@ export default () => {
         onClose={handleClose}
         TransitionComponent={Fade}
       >
-        <MenuItem onClick={handleClose}>
-          <BlockIcon className={classes.icon} />
-          Block
+        <MenuItem
+          onClick={(e) => {
+            blockUser({ variables: { id: user.id, blocked: !user.blocked } });
+            handleClose();
+          }}
+        >
+          {
+            user.blocked ? (
+              <>
+                <CheckCircleOutlineOutlinedIcon className={classes.icon} />
+                Unblock
+              </>
+            ) : (
+              <>
+                <BlockIcon className={classes.icon} />
+                Block
+              </>
+            )
+          }
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem
+          onClick={(e) => {
+            deleteUser({ variables: { where: { id: user.id } } });
+            handleClose();
+          }}
+        >
           <DeleteIcon className={classes.icon} />
           Delete
         </MenuItem>
@@ -70,3 +101,19 @@ export default () => {
     </Grid>
   );
 };
+
+Item.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    firstName: PropTypes.string.isRequired,
+    secondName: PropTypes.string.isRequired,
+    userName: PropTypes.string.isRequired,
+    blocked: PropTypes.bool.isRequired,
+  }).isRequired,
+  refetch: PropTypes.func.isRequired,
+};
+
+export default Item;
+/*
+onMouseDown={(e) => { if (e.button === 0) history.push(`${location.pathname}/${user.id}`); }}
+-*/
