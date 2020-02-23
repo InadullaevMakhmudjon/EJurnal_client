@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import style from 'assets/jss/components/singin';
+import style from 'assets/jss/pages/auth/singin';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -9,10 +9,13 @@ import PersonIcon from '@material-ui/icons/Person';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
+import { useHistory } from 'react-router-dom';
 
 const useStyle = makeStyles(style);
 
 const SignIn = ({ sinIn, loading }) => {
+  const history = useHistory();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -20,6 +23,7 @@ const SignIn = ({ sinIn, loading }) => {
 
   return (
     <Grid className={classes.container} container item xs={10} sm={10} md={3} spacing={1} alignItems="center" justify="center">
+      <Typography variant="h6" align="center" className={classes.title}>SignIn</Typography>
       {/* <Grid className={classes.header} sm={8} align="center" justify="center" container /> */}
       <Grid item align="center" className={classes.content}>
         <TextField
@@ -56,6 +60,11 @@ const SignIn = ({ sinIn, loading }) => {
             loading ? <CircularProgress size="1.5rem" color="inherit" /> : 'Sign in'
           }
         </Button>
+        <Typography variant="body2" align="center" className={classes.subcontent}>
+          Sign up
+          {' '}
+          <span className={classes.link} onClick={() => { history.push('/Auth/signUp'); }}>here</span>
+        </Typography>
       </Grid>
     </Grid>
   );
