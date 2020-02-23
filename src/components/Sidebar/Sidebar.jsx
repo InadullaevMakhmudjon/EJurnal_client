@@ -23,7 +23,7 @@ const Sidebar = ({ image, routes }) => {
 
   const header = (
     <div className={classes.header}>
-      <Typography variant="h4">{user.name}</Typography>
+      <Typography variant="h4">{`${user.firstName}`}</Typography>
     </div>
   );
 
