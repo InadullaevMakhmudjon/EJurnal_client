@@ -1,5 +1,5 @@
-export const ADMIN = '1';
+export const ADMIN = '001';
 
-export const AUTHOR = '2';
+export const AUTHOR = '002';
 
-export const EDITOR = '3';
+export const EDITOR = '003';
