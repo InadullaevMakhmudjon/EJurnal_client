@@ -50,7 +50,7 @@ const TableComponent = ({ authors, deleteAuthor, blockAuthor }) => {
                           author.blocked ? <CheckCircleOutlineOutlinedIcon /> : <BlockIcon />
                         }
                       </Fab>
-                      <Fab onClick={() => deleteAuthor({ variables: { where: { id: author.id } } })} variant="round" color="secondary" size="small">
+                      <Fab variant="round" color="secondary" size="small">
                         <DeleteIcon />
                       </Fab>
                     </Grid>
@@ -63,6 +63,10 @@ const TableComponent = ({ authors, deleteAuthor, blockAuthor }) => {
     </TableContainer>
   );
 };
+
+/*
+  onClick={() => deleteAuthor({ variables: { where: { id: author.id } } })} // Delete action for authors
+*/
 
 TableComponent.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types

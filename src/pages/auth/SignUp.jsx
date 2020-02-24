@@ -50,8 +50,8 @@ export default () => {
       <TextField className={classes.textField} onChange={(e) => { setForm({ ...form, firstName: e.target.value }); }} variant="standard" placeholder="First name*" />
       <TextField className={classes.textField} onChange={(e) => { setForm({ ...form, secondName: e.target.value }); }} variant="standard" placeholder="Second name*" />
       <TextField className={classes.textField} onChange={(e) => { setForm({ ...form, userName: e.target.value }); }} variant="standard" placeholder="User name*" />
-      <TextField className={classes.textField} onChange={(e) => { setForm({ ...form, password: e.target.value }); }} variant="standard" placeholder="Password*" />
-      <TextField className={classes.textField} onChange={(e) => { setRepeated(e.target.value); }} variant="standard" placeholder="Repeat password*" />
+      <TextField className={classes.textField} type="password" onChange={(e) => { setForm({ ...form, password: e.target.value }); }} variant="standard" placeholder="Password*" />
+      <TextField className={classes.textField} type="password" onChange={(e) => { setRepeated(e.target.value); }} variant="standard" placeholder="Repeat password*" />
       <Button className={classes.submit} onClick={handleSubmit} variant="contained" color="primary">
         {
             loading ? <CircularProgress size="1.5rem" color="inherit" /> : 'Sign up'
