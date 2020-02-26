@@ -12,13 +12,20 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
+import { GET_EDITORS } from 'graphql/author';
+import { useQuery } from '@apollo/react-hooks';
 
 const userStyle = makeStyles(style);
 
 const StepOne = ({
-  image, editors, editorId, editorNameId, setEditorId, setEditorNameId,
+  image, editorId, editorNameId, setEditorId, setEditorNameId,
 }) => {
   const classes = userStyle();
+
+  const { data, loading } = useQuery(GET_EDITORS);
+
+  if (loading && !data) return <>Loading...</>;
+
 
   return (
     <Grid container justify="center">
@@ -36,7 +43,7 @@ const StepOne = ({
                 <FaceIcon />
               </Grid>
               <Grid item sm={11} className={classes.padding}>
-                <TextField value={editorId} fullWidth disabled={editorNameId !== 0} onChange={(e) => setEditorId(e.target.value)} variant="outlined" id="input-with-icon-grid" label="Editor ID" />
+                <TextField value={editorId} fullWidth disabled={editorNameId !== ''} onChange={(e) => setEditorId(e.target.value)} variant="outlined" id="input-with-icon-grid" label="Editor username" />
               </Grid>
             </Grid>
             <Grid container justify="center" alignItems="center" className={classes.orCondition}>
@@ -51,10 +58,12 @@ const StepOne = ({
                   <InputLabel id="input-width-with-editor">Select an Editor</InputLabel>
                   <Select value={editorNameId} onChange={(e) => setEditorNameId(e.target.value)} labelId="input-width-with-editor">
                     {
-                        editors.map(({ id, name }) => (
-                          <MenuItem key={id} value={id}>{name}</MenuItem>
+                        data.editors.map(({
+                          userName, firstName, secondName,
+                        }) => (
+                          <MenuItem key={userName} value={userName}>{`${firstName} ${secondName}`}</MenuItem>
                         ))
-                      }
+                    }
                   </Select>
                 </FormControl>
               </Grid>
@@ -70,17 +79,12 @@ const StepOne = ({
 StepOne.propTypes = {
   image: PropTypes.string,
   editorId: PropTypes.string.isRequired,
-  editorNameId: PropTypes.number.isRequired,
+  editorNameId: PropTypes.string.isRequired,
   setEditorId: PropTypes.func.isRequired,
   setEditorNameId: PropTypes.func.isRequired,
-  editors: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-  })),
 };
 
 StepOne.defaultProps = {
-  editors: [],
   image: '',
 };
 

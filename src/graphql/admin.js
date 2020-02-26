@@ -1,6 +1,6 @@
 import { gql } from 'apollo-boost';
 
-export const CREATE_USER = gql`
+const CREATE_USER = gql`
     mutation CreateUser($data: InputUserType!) {
         createUser(data: $data) {
             firstName
@@ -12,7 +12,7 @@ export const CREATE_USER = gql`
     }
 `;
 
-export const GET_USERS = gql`
+const GET_USERS = gql`
     query getUsers($roleId: String!){
         users(roleId: $roleId) {
             id
@@ -29,7 +29,7 @@ export const GET_USERS = gql`
     }
 `;
 
-export const GET_USER = gql`
+const GET_USER = gql`
     query getUser($where: WhereInputUserType!){
         user(where: $where) {
             id
@@ -46,7 +46,7 @@ export const GET_USER = gql`
     }
 `;
 
-export const DELETE_USER = gql`
+const DELETE_USER = gql`
     mutation DeleteUser($where: WhereInputUserType!) {
         deleteUser(where: $where) {
             firstName
@@ -54,7 +54,7 @@ export const DELETE_USER = gql`
     }
 `;
 
-export const BLOCK_USER = gql`
+const BLOCK_USER = gql`
     mutation BlockUser($id: ID!, $blocked: Boolean!) {
         updateUser(data: {
             blocked: $blocked
@@ -65,3 +65,11 @@ export const BLOCK_USER = gql`
         }
     }
 `;
+
+export {
+  CREATE_USER,
+  GET_USERS,
+  GET_USER,
+  DELETE_USER,
+  BLOCK_USER,
+};

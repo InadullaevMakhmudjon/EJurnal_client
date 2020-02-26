@@ -9,31 +9,30 @@ import Button from '@material-ui/core/Button';
 import { Grid } from '@material-ui/core';
 import Step1 from './Step1';
 import Step2 from './Step2';
+import Step3 from './Step3';
 
 const userStyle = makeStyles(style);
 
-const CustomStepper = ({ editorId, editorNameId, ...others }) => {
-  const [activeStep, setActiveStep] = useState(0);
-  const steps = ['Select an editor', 'Create an ad group', 'Create an ad'];
-
+const CustomStepper = ({
+  editorNameId, isValied, ...others
+}) => {
   const classes = userStyle();
-
+  const [activeStep, setActiveStep] = useState(0);
+  const steps = ['Select an editor', 'Create an article', 'Create an ad'];
 
   function getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0:
         return (
           <Step1
-            editors={[{ id: 0, name: 'None' }, { id: 1, name: 'ASd' }, { id: 2, name: 'PDS' }]}
-            editorId={editorId}
             editorNameId={editorNameId}
             {...others}
           />
         );
       case 1:
-        return <Step2 />;
+        return <Step2 {...others} />;
       case 2:
-        return 'This is the bit I really care about!';
+        return <Step3 {...others} />;
       default:
         return 'Unknown stepIndex';
     }
@@ -60,7 +59,7 @@ const CustomStepper = ({ editorId, editorNameId, ...others }) => {
       </Stepper>
       <Grid container justify="space-around" className={classes.buttonContainer}>
         <Button disabled={activeStep === 0} onClick={handleBack} variant="outlined" color="primary" className={classes.nextButton}>Back</Button>
-        <Button disabled={!editorId && !editorNameId} onClick={handleNext} variant="outlined" color="primary" className={classes.nextButton}>{activeStep === 2 ? 'Finish' : 'Next'}</Button>
+        <Button disabled={activeStep === 2 ? true : (!editorNameId && !isValied)} onClick={handleNext} variant="outlined" color="primary" className={classes.nextButton}>{activeStep === 2 ? 'Finish' : 'Next'}</Button>
       </Grid>
       {getStepContent(activeStep)}
     </div>
@@ -68,8 +67,8 @@ const CustomStepper = ({ editorId, editorNameId, ...others }) => {
 };
 
 CustomStepper.propTypes = {
-  editorId: PropTypes.string.isRequired,
-  editorNameId: PropTypes.number.isRequired,
+  isValied: PropTypes.bool.isRequired,
+  editorNameId: PropTypes.string.isRequired,
 };
 
 export default CustomStepper;
