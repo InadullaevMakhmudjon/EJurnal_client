@@ -22,7 +22,7 @@ const SignIn = ({ sinIn, loading }) => {
   const classes = useStyle();
 
   return (
-    <Grid className={classes.container} container item xs={10} sm={10} md={3} spacing={1} alignItems="center" justify="center">
+    <Grid className={classes.container} container alignItems="center" justify="center">
       <Typography variant="h6" align="center" className={classes.title}>SignIn</Typography>
       {/* <Grid className={classes.header} sm={8} align="center" justify="center" container /> */}
       <Grid item align="center" className={classes.content}>
