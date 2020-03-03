@@ -22,49 +22,52 @@ const SignIn = ({ sinIn, loading }) => {
   const classes = useStyle();
 
   return (
-    <Grid className={classes.container} container alignItems="center" justify="center">
-      <Typography variant="h6" align="center" className={classes.title}>SignIn</Typography>
-      {/* <Grid className={classes.header} sm={8} align="center" justify="center" container /> */}
-      <Grid item align="center" className={classes.content}>
-        <TextField
-          className={classes.textField}
-          id="input-username-with-icon-textfield"
-          label="Username"
-          onKeyUp={(e) => { if (e.keyCode === 13) { sinIn(username, password); } }}
-          onChange={(e) => setUsername(e.target.value)}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <PersonIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-        <TextField
-          className={classes.textField}
-          id="input-password-with-icon-textfield"
-          label="Password"
-          onKeyUp={(e) => { if (e.keyCode === 13) { sinIn(username, password); } }}
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <HttpsIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-        <Button onClick={() => sinIn(username, password)} className={classes.Button} variant="contained" size="large" color="primary">
-          {
+    <Grid container alignItems="center" justify="center">
+      <Grid item xs={10} md={3} className={classes.container}>
+        <Typography variant="h6" align="center" className={classes.title}>SignIn</Typography>
+        {/* <Grid className={classes.header} sm={8} align="center" justify="center" container /> */}
+        <Grid item align="center" className={classes.content}>
+          <TextField
+            className={classes.textField}
+            id="input-username-with-icon-textfield"
+            label="Username"
+            onKeyUp={(e) => { if (e.keyCode === 13) { sinIn(username, password); } }}
+            onChange={(e) => setUsername(e.target.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <PersonIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <TextField
+            className={classes.textField}
+            id="input-password-with-icon-textfield"
+            label="Password"
+            onKeyUp={(e) => { if (e.keyCode === 13) { sinIn(username, password); } }}
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <HttpsIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <Button onClick={() => sinIn(username, password)} className={classes.Button} variant="contained" size="large" color="primary">
+            {
             loading ? <CircularProgress size="1.5rem" color="inherit" /> : 'Sign in'
           }
-        </Button>
-        <Typography variant="body2" align="center" className={classes.subcontent}>
-          Sign up
-          {' '}
-          <span className={classes.link} onClick={() => { history.push('/Auth/signUp'); }}>here</span>
-        </Typography>
+          </Button>
+          <Typography variant="body2" align="center" className={classes.subcontent}>
+            Sign up
+            {' '}
+            <span className={classes.link} onClick={() => { history.push('/Auth/signUp'); }}>here</span>
+          </Typography>
+        </Grid>
+
       </Grid>
     </Grid>
   );
